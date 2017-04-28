@@ -43,7 +43,7 @@
     <button id = "submit" type="submit" class="btn btn-primary">
       Submit
     </button>
-<ul id ="answers"></ul>
+<ul id ="answers" style="color: red"></ul>
         {% endblock %}
 
  <script type="text/javascript">
@@ -58,6 +58,7 @@
         				return;
         		}
         		$('#answers').empty();
+        		$('#answers').append('<span class="tab">Predicted answers</span>');
 		        data.answers.forEach(function(item) {
 			    	$('#answers').append('<li><span class="tab">'+ item+'</span></a></li>');
 				});
