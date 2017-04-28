@@ -1,10 +1,11 @@
 import csv
+from questionnaire.settings import BASE_DIR
 
 
 def get_all_questions_answer():
     data_source = 'CSV'
     if data_source == 'CSV':
-        return get_data_from_csv('sample messages.csv')
+        return get_data_from_csv(BASE_DIR + '/app/' + 'sample messages.csv')
 
 
 def get_data_from_csv(input_file):
@@ -29,6 +30,4 @@ def pridict_answer(query, limit=3, min_confidence=70):
     for item in predicted_questions:
         if min_confidence <= item[1]:
             pridicted.append((item[0], item[1], dic_questionnaire[item[0]]))
-    print(pridicted)
-
-pridict_answer('Could I offer u $53.56 for it? It s all I got!')
+    return pridicted
