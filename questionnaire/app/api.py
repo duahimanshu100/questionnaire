@@ -16,6 +16,6 @@ class PredictionApi(APIView):
         query = request.GET.get('query', '')
         if query:
             predicted_lst = pridict_answer(query)
-            return Response({'result': predicted_lst})
+            return Response({'answers': predicted_lst})
         else:
             return Response({'error': 'No query provided'})

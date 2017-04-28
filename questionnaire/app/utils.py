@@ -29,5 +29,6 @@ def pridict_answer(query, limit=3, min_confidence=70):
     pridicted = []
     for item in predicted_questions:
         if min_confidence <= item[1]:
-            pridicted.append((item[0], item[1], dic_questionnaire[item[0]]))
+            pridicted.append(dic_questionnaire[item[0]])
+            # pridicted.append((item[0], item[1], dic_questionnaire[item[0]]))
     return pridicted
