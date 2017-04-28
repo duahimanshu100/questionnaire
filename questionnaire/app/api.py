@@ -4,7 +4,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 # from rest_framework import status
-from app.utils import pridict_answer
+from app.utils import pridict_answer, add_new_questionnaire
 
 
 class PredictionApi(APIView):
@@ -19,3 +19,12 @@ class PredictionApi(APIView):
             return Response({'answers': predicted_lst})
         else:
             return Response({'error': 'No query provided'})
+
+    def post(self, request):
+        question = request.POST.get('question', '')
+        answer = request.POST.get('answer', '')
+        if question and answer:
+            add_new_questionnaire(question, answer)
+            return Response({'result': True})
+        else:
+            return Response({'error': 'No data provided'})
