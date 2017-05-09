@@ -29,36 +29,32 @@
             <div class="navbar-header">
               <a class="navbar-brand" href="/">Questionnaire App</a>
             </div>
-            <ul class="nav navbar-nav">
-              <li><a href="/">Link1</a></li>
-              <li><a href="/">Link2</a></li>
-              <li><a href="/">Link3</a></li>
-              <li><a href="/">Link4</a></li>
-              <li><a href="/">Link5</a></li>
-            </ul>
+
           </div>
         </nav>
         {% block content %}
+        <div class="container-fluid">
         <div class="row">
-        	<input type="text" style="width:40%" id="question" placeholder="Enter your question">
+        	<input type="text" class="form-control pull-left" style="width:40%;margin-right: 10px;" id="question" placeholder="Enter your question">
     <button id = "submit" type="submit" class="btn btn-primary">
       Submit
     </button>
     <ul id ="answers" style="color: red"></ul>
     </div>
-    <div class="row">
+    <div class="row" style="min-height: 30px">
     </div>
     <div class="row">
           <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Add New Question</button>
 
-          <div id="demo" class="collapse out row">
-            <input type="text" style="width:20%" id="add_question" placeholder="Enter your question">
-           <input type="text" style="width:25%" id="add_answer" placeholder="Enter your answer">
+          <div id="demo" style="margin-top: 20px" class="collapse out">
+            <input type="text" class="form-control pull-left" style="width:20%;margin-right: 10px;" id="add_question" placeholder="Enter your question">
+           <input type="text" class="form-control pull-left" style="width:25%;margin-right: 10px;" id="add_answer" placeholder="Enter your answer">
             <button id = "save_answer" type="submit" class="btn btn-primary">
           Save Answer
             </button> 
             <div id="result_add_question" style="color: red"></div>
           </div>
+    </div>
     </div>
         {% endblock %}
 
