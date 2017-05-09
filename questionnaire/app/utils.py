@@ -15,15 +15,29 @@ def get_data_from_csv(input_file):
         return [row for row in questionnaire_reader]
 
 
-def pre_process_data(data):
+def pre_process_data(data, query=None):
+    lst_mandatory_words = ['title', 'cancel', 'cancel order',
+                           'measure', 'address', 'phone number',
+                           'distance', 'return', 'feedback']
+    query_word = None
+    if query:
+        words = query.split()
+        for word in words:
+            if word in lst_mandatory_words:
+                query_word = word
+                break
+
+    if query_word:
+        data = {k: v for (k, v) in data.items() if query_word in k}
     lst_questions = [row[0] for row in data]
+
     dic_questionnaire = dict(data)
     return lst_questions, dic_questionnaire
 
 
 def pridict_answer(query, limit=3, min_confidence=70):
     lst_questions, dic_questionnaire = pre_process_data(
-        get_all_questions_answer())
+        get_all_questions_answer(), query)
     from fuzzywuzzy import process
     predicted_questions = process.extract(query,
                                           lst_questions, limit=limit)
