@@ -26,16 +26,16 @@ def pre_process_data(data, query=None):
             if word in lst_mandatory_words:
                 query_word = word
                 break
-
     if query_word:
-        data = {k: v for (k, v) in data.items() if query_word in k}
+        data = [k for k in data if query_word in [i.lower()
+                                                  for i in k[0].split()]]
     lst_questions = [row[0] for row in data]
 
     dic_questionnaire = dict(data)
     return lst_questions, dic_questionnaire
 
 
-def pridict_answer(query, limit=3, min_confidence=70):
+def pridict_answer(query, limit=3, min_confidence=60):
     lst_questions, dic_questionnaire = pre_process_data(
         get_all_questions_answer(), query)
     from fuzzywuzzy import process

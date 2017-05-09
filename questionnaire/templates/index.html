@@ -39,12 +39,30 @@
           </div>
         </nav>
         {% block content %}
+        <div class="row">
         	<input type="text" style="width:40%" id="question" placeholder="Enter your question">
     <button id = "submit" type="submit" class="btn btn-primary">
       Submit
     </button>
-<ul id ="answers" style="color: red"></ul>
+    <ul id ="answers" style="color: red"></ul>
+    </div>
+    <div class="row">
+    </div>
+    <div class="row">
+          <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Add New Question</button>
+
+          <div id="demo" class="collapse out row">
+            <input type="text" style="width:20%" id="add_question" placeholder="Enter your question">
+           <input type="text" style="width:25%" id="add_answer" placeholder="Enter your answer">
+            <button id = "save_answer" type="submit" class="btn btn-primary">
+          Save Answer
+            </button> 
+            <div id="result_add_question" style="color: red"></div>
+          </div>
+    </div>
         {% endblock %}
+
+
 
  <script type="text/javascript">
     $("#submit").click(function(){
@@ -64,9 +82,18 @@
 				});
 			});
     });
+    $("#save_answer").click(function(){''
+        $.post( "/app/api/PredictionApi", { question: $('#add_question').val(), answer: $('#add_answer').val() })
+          .done(function( data ) {
+            if (data.result){
+                $('#result_add_question').text('New question has been added');
+            }
+          });
+        });
+
 </script>
 
-    </body>
+</body>
 </html>
 {% endblock %}
 
