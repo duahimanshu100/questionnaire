@@ -44,10 +44,9 @@
     <div class="row" style="min-height: 30px">
     </div>
     <div class="row">
-          <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Add New Question</button>
+          <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Add New Answer</button>
 
           <div id="demo" style="margin-top: 20px" class="collapse out">
-            <input type="text" class="form-control pull-left" style="width:20%;margin-right: 10px;" id="add_question" placeholder="Enter your question">
            <input type="text" class="form-control pull-left" style="width:25%;margin-right: 10px;" id="add_answer" placeholder="Enter your answer">
             <button id = "save_answer" type="submit" class="btn btn-primary">
           Save Answer
@@ -79,10 +78,10 @@
 			});
     });
     $("#save_answer").click(function(){''
-        $.post( "/app/api/PredictionApi", { question: $('#add_question').val(), answer: $('#add_answer').val() })
+        $.post( "/app/api/PredictionApi", { question: $('#question').val(), answer: $('#add_answer').val() })
           .done(function( data ) {
             if (data.result){
-                $('#result_add_question').text('New question has been added');
+                $('#result_add_question').text('New answer has been added');
             }
           });
         });

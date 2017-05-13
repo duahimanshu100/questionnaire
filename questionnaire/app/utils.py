@@ -1,5 +1,12 @@
 import csv
+import re
 from questionnaire.settings import BASE_DIR
+
+
+def get_data_from_csv(input_file):
+    with open(input_file, 'rb') as csvfile:
+        questionnaire_reader = csv.reader(csvfile)
+        return [row for row in questionnaire_reader]
 
 
 def get_all_questions_answer():
@@ -7,12 +14,6 @@ def get_all_questions_answer():
     if data_source == 'CSV':
         input_file = BASE_DIR + '/app/' + 'sample messages.csv'
         return get_data_from_csv(input_file)
-
-
-def get_data_from_csv(input_file):
-    with open(input_file, 'rb') as csvfile:
-        questionnaire_reader = csv.reader(csvfile)
-        return [row for row in questionnaire_reader]
 
 
 def pre_process_data(data, query=None):
@@ -23,6 +24,7 @@ def pre_process_data(data, query=None):
     if query:
         words = query.split()
         for word in words:
+            word = "".join(re.findall("[a-zA-Z0-9]+", word))
             if word in lst_mandatory_words:
                 query_word = word
                 break
@@ -53,7 +55,24 @@ def add_new_questionnaire(question, answer, input_file=None):
     data_source = 'CSV'
     if data_source == 'CSV':
         input_file = BASE_DIR + '/app/' + 'sample messages.csv'
+        rows = check_question_exists(question, answer, input_file)
+        if rows:
+            writer = csv.writer(open(input_file, 'w'))
+            writer.writerows(rows)
+            return
         with open(input_file, 'a') as f:
             fields = [question, answer]
             writer = csv.writer(f)
             writer.writerow(fields)
+
+
+def check_question_exists(question, answer, input_file):
+    rows = get_data_from_csv(input_file)
+    found = False
+    for row in rows:
+        if row[0] == question:
+            row[1] = answer
+            found = True
+    if found:
+        return rows
+    return None
